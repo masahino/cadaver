@@ -91,6 +91,7 @@ static char *rcfile;
 char *proxy_hostname;
 int proxy_port;
 char *server_username = NULL, *server_password = NULL;
+char *proxy_username = NULL, *proxy_password = NULL;
 
 /* Current session state. */
 struct session session;
@@ -364,6 +365,17 @@ void open_connection(const char *url)
 	    proxy_port = 8080;
 	}
 	proxy_hostname = proxy_host;
+    }
+
+    if (proxy_username != NULL) {
+	 if (get_option(opt_proxy_username) != NULL) {
+	      proxy_username = get_option(opt_proxy_username);
+	 }
+    }
+    if (proxy_password != NULL) {
+	 if (get_option(opt_proxy_password) != NULL) {
+	      proxy_password  = get_option(opt_proxy_password);
+	 }
     }
 
 #ifdef ENABLE_NETRC
@@ -1154,6 +1166,13 @@ static int supply_creds_server(void *userdata, const char *realm, int attempt,
 static int supply_creds_proxy(void *userdata, const char *realm, int attempt,
 			      char *username, char *password) 
 {
+
+    if (proxy_username && proxy_password && attempt-- == 0) {
+	ne_strnzcpy(username, proxy_username, NE_ABUFSIZ);
+	ne_strnzcpy(password, proxy_password, NE_ABUFSIZ);
+	return 0;
+    }
+
     if (attempt > 1)
 	return -1;
 

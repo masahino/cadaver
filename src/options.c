@@ -109,6 +109,10 @@ static struct option {
     S(searchdorder, "Search descending props options"),
     { "proxy-port", opt_proxy_port, NULL, opt_string, NULL, NULL, NULL,
       "Port to use on proxy server", NULL },
+    { "proxy-username", opt_proxy_username, NULL, opt_string, NULL, NULL, NULL,
+      "Username to use on proxy server", NULL },
+    { "proxy-password", opt_proxy_password, NULL, opt_string, NULL, NULL, NULL,
+      "Password to use on proxy server", NULL },
 #undef S
     { "debug", opt_debug, NULL, opt_handled,
       set_debug, unset_debug, disp_debug, "Debugging options",
