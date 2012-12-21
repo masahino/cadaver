@@ -31,6 +31,8 @@ enum option_id {
     opt_quiet,
     opt_proxy,
     opt_proxy_port,
+    opt_proxy_username,
+    opt_proxy_password,
     opt_debug,
     opt_utf8,
     opt_overwrite,
